@@ -16,7 +16,7 @@ function Layout() {
             if(response.data && response.data.user){
                 setUserInfo(response.data.user);
 
-                // console.log(userInfo.fullName);
+                // console.log(userInfo.fullname);
             }
         }
         catch (error){

@@ -7,7 +7,7 @@ function ProfileInfo({userInfo, onLogout}) {
 
   useEffect(() => {
     if (userInfo) {
-        setUserName(userInfo.fullName);
+        setUserName(userInfo.fullname);
         // console.log(userInfo._id);
     }
   }, [userInfo]);
