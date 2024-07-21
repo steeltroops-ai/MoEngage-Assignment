@@ -60,7 +60,7 @@ function Navbar({ userInfo = null }) {
             </li>
             <li>
               <NavLink
-                to='/list'
+                to='/lists'
                 className={({ isActive }) =>
                   `block py-2 pr-4 pl-3 duration-200
                   ${isActive ? "text-orange-700" : "text-gray-700"}
@@ -69,7 +69,7 @@ function Navbar({ userInfo = null }) {
                    lg:border-0 hover:text-orange-700 lg:p-0 mr-2`
                 }
               >
-                YourList
+                Your Lists
               </NavLink>
             </li>
           </ul>

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Home() {
   const [imageSrc, setImageSrc] = useState([]);
@@ -7,6 +7,7 @@ function Home() {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const { searchTerm = "" } = useParams();
+  const navigate = useNavigate();
 
   const defaultCodes = [101, 102, 103, 202, 203, 204, 304, 305, 403, 404, 501];
   const searchCodes = [
@@ -48,16 +49,12 @@ function Home() {
     }
   },[]);
 
-  //handlesave image in list 
-  const navigate = useNavigate();
-  const handleSaveImage = (src, code) => {
-    // Save image details to localStorage or navigate with state
-    const savedImages = JSON.parse(localStorage.getItem('savedImages')) || [];
-    savedImages.push({ src, code });
-    localStorage.setItem('savedImages', JSON.stringify(savedImages));
-
-    // Navigate to List page
-    // navigate('/list');
+  const saveAllImages = () => {
+    const savedLists = JSON.parse(localStorage.getItem('savedLists')) || [];
+    const listName = `List${searchTerm ? ` ${searchTerm}` : ''}`;
+    savedLists.push({ name: listName, images: imageSrc });
+    localStorage.setItem('savedLists', JSON.stringify(savedLists));
+    alert('successfully saved');
   };
 
   useEffect(() => {
@@ -84,38 +81,33 @@ function Home() {
 
   return (
     <div className='relative flex flex-wrap items-center py-12 px-32 gap-8'>
-    {loading ? (
-      <p className='mt-4'>Loading...</p>
-    ) : error ? (
-      <p className='mt-4'>{error}</p>
-    ) : imageSrc.length > 0 ? (
-      imageSrc.map(({ src, code }) => (
-        <div key={code} className='relative flex flex-col'>
-          <img
-            className='w-72 mt-4 cursor-pointer'
-            src={src}
-            alt={`HTTP Dog ${code}`}
-            onClick={() => setSelectedImage(src)}
-          />
-          <button
-            onClick={() => handleSaveImage(src, code)}
-            className='absolute bottom-2 left-2 bg-gray-500 bg-opacity-35 text-white px-4 py-2 rounded'
-          >
-            Save
-          </button>
-        </div>
-      ))
-    ) : (
-      <p className='mt-4'>No images found.</p>
-    )}
+      <button onClick={saveAllImages} className='absolute top-2 right-2 bg-orange-700 text-white px-4 py-2 rounded'>Save All</button>
+      {loading ? (
+        <p className='mt-4'>Loading...</p>
+      ) : error ? (
+        <p className='mt-4'>{error}</p>
+      ) : imageSrc.length > 0 ? (
+        imageSrc.map(({ src, code }) => (
+          <div key={code} className='relative flex flex-col'>
+            <img
+              className='w-72 mt-4 cursor-pointer'
+              src={src}
+              alt={`HTTP Dog ${code}`}
+              onClick={() => setSelectedImage(src)}
+            />
+          </div>
+        ))
+      ) : (
+        <p className='mt-4'>No images found.</p>
+      )}
 
-    {selectedImage && (
-      <div className='fixed inset-0 z-50 flex items-center justify-center overlay bg-black bg-opacity-50'>
-        <img className='max-w-full max-h-full z-60' src={selectedImage} alt='Selected' />
-      </div>
-    )}
-  </div>
-);
+      {selectedImage && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center overlay bg-black bg-opacity-50'>
+          <img className='max-w-full max-h-full z-60' src={selectedImage} alt='Selected' />
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Home;

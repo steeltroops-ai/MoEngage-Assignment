@@ -7,6 +7,7 @@ import Signup from './Pages/Signup/Signup.jsx';
 import Home from './components/Home/Home.jsx';
 import Layout from './Layout.jsx';
 import List from './components/List/List.jsx';
+import ListDetail from './components/List/ListDetail.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -14,7 +15,9 @@ const router = createBrowserRouter(
       <Route path='/' element={<Layout />}>  
         <Route index element={<Home />}/> 
         <Route path="/search/:searchTerm" element={<Home />} />
-        <Route path='list' element={<List />}/>
+        <Route path="/lists" element={<List />} />
+        <Route path="/list/:listName" element={<ListDetail isEditMode={false} />} />
+        <Route path="/edit/:listName" element={<ListDetail isEditMode={true} />} />
         {/* <Route path="/search/:category" element={<Home />} />    */}
       </Route>
       <Route path='/login' element={<Login />} />

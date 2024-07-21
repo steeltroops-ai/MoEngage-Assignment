@@ -40,7 +40,7 @@ function Layout() {
     
     <Navbar userInfo={userInfo}/>
     <Outlet />
-    <Footer />
+    {/* <Footer /> */}
     </>
   )
 }
