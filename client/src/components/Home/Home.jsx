@@ -54,7 +54,7 @@ function Home() {
     const listName = `List${searchTerm ? ` ${searchTerm}` : ''}`;
     savedLists.push({ name: listName, images: imageSrc });
     localStorage.setItem('savedLists', JSON.stringify(savedLists));
-    alert('successfully saved');
+    alert('Successfully saved');
   };
 
   useEffect(() => {
@@ -80,17 +80,17 @@ function Home() {
   }, [handleClickOutside]);
 
   return (
-    <div className='relative flex flex-wrap items-center py-12 px-32 gap-8'>
-      <button onClick={saveAllImages} className='absolute top-2 right-2 bg-orange-700 text-white px-4 py-2 rounded'>Save All</button>
+    <div className='relative flex flex-wrap items-center min-h-screen gap-8 px-32 py-12 bg-gray-100'>
+      <button onClick={saveAllImages} className='absolute px-4 py-2 text-white transition duration-300 bg-orange-700 rounded shadow-lg top-2 right-2 hover:bg-orange-800'>Save All</button>
       {loading ? (
-        <p className='mt-4'>Loading...</p>
+        <p className='mt-4 text-lg text-gray-700'>Loading...</p>
       ) : error ? (
-        <p className='mt-4'>{error}</p>
+        <p className='mt-4 text-lg text-red-500'>{error}</p>
       ) : imageSrc.length > 0 ? (
         imageSrc.map(({ src, code }) => (
-          <div key={code} className='relative flex flex-col'>
+          <div key={code} className='relative flex flex-col items-center'>
             <img
-              className='w-72 mt-4 cursor-pointer'
+              className='mt-4 transition duration-300 transform rounded-lg shadow-lg cursor-pointer w-72 hover:scale-105'
               src={src}
               alt={`HTTP Dog ${code}`}
               onClick={() => setSelectedImage(src)}
@@ -98,12 +98,12 @@ function Home() {
           </div>
         ))
       ) : (
-        <p className='mt-4'>No images found.</p>
+        <p className='mt-4 text-lg text-gray-700'>No images found.</p>
       )}
 
       {selectedImage && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center overlay bg-black bg-opacity-50'>
-          <img className='max-w-full max-h-full z-60' src={selectedImage} alt='Selected' />
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 overlay'>
+          <img className='max-w-full max-h-full rounded-lg shadow-lg z-60' src={selectedImage} alt='Selected' />
         </div>
       )}
     </div>

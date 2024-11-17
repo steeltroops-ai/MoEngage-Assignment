@@ -17,31 +17,31 @@ function Lists() {
   };
 
   return (
-    <div className='relative flex flex-wrap items-center py-12 px-32 gap-8'>
+    <div className='relative flex flex-wrap items-center gap-8 px-32 py-12'>
       {savedLists.length > 0 ? (
         savedLists.map(({ name }, index) => (
           <div className='flex flex-col'>
 
           <button onClick={() => navigate(`/list/${name}`)}
-          className='bg-blue-800 p-2 rounded text-white rounded-b-none'
+          className='p-2 text-white bg-blue-800 rounded rounded-b-none'
           >{name}</button>
 
           <div key={index} className='relative flex flex-row'>
 
             <button 
-              className='w-24 cursor-pointer bg-blue-500 text-white p-2 rounded-s rounded-t-none mb-2' 
+              className='w-24 p-2 mb-2 text-white bg-blue-500 rounded-t-none cursor-pointer rounded-s' 
               onClick={() => navigate(`/list/${name}`)}
             >
               Show
             </button>
             <button 
-              className='w-24 cursor-pointer bg-yellow-500 text-white p-2 mb-2' 
+              className='w-24 p-2 mb-2 text-white bg-yellow-500 cursor-pointer' 
               onClick={() => navigate(`/edit/${name}`)}
             >
               Edit
             </button>
             <button 
-              className='w-24 cursor-pointer bg-red-500 text-white p-2 rounded-e rounded-t-none mb-2' 
+              className='w-24 p-2 mb-2 text-white bg-red-500 rounded-t-none cursor-pointer rounded-e' 
               onClick={() => handleDeleteList(name)}
             >
               Delete

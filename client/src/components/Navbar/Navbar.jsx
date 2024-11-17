@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import ProfileInfo from '../ProfileInfo/ProfileInfo';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -23,11 +30,20 @@ function Navbar({ userInfo = null }) {
   };
 
   return (
-    <nav className="bg-gray-500 border-gray-200 px-4 lg:px-6 py-2.5 bg-opacity-50 sticky z-50 top-0">
-      <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-        <h2 className='text-lg font-medium font-serif'>Dog's House</h2>
-
-        <div className="flex items-center lg:order-2 gap-1">
+    <AppBar position="sticky" sx={{ backgroundColor: 'rgba(75, 85, 99, 0.5)' }}>
+      <Toolbar>
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          Dog's House
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <SearchBar
             value={searchCategory}
             onChange={({ target }) => {
@@ -36,46 +52,18 @@ function Navbar({ userInfo = null }) {
             }}
             onClearSearch={onClearSearch}
           />
-
           <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
-        </div>
-        <div
-          className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
-          id="mobile-menu-2"
-        >
-          <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-            <li>
-              <NavLink
-                to='/'
-                className={({ isActive }) =>
-                  `block py-2 pr-4 pl-3 duration-200
-                  ${isActive ? "text-orange-700" : "text-gray-700"}
-                   border-b border-gray-100
-                  hover:bg-gray-50 lg:hover:bg-transparent
-                   lg:border-0 hover:text-orange-700 lg:p-0 mr-2`
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to='/lists'
-                className={({ isActive }) =>
-                  `block py-2 pr-4 pl-3 duration-200
-                  ${isActive ? "text-orange-700" : "text-gray-700"}
-                   border-b border-gray-100
-                  hover:bg-gray-50 lg:hover:bg-transparent
-                   lg:border-0 hover:text-orange-700 lg:p-0 mr-2`
-                }
-              >
-                Your Lists
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+        </Box>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <Button color="inherit" component={NavLink} to="/" sx={{ '&.active': { color: 'orange' } }}>
+            Home
+          </Button>
+          <Button color="inherit" component={NavLink} to="/lists" sx={{ '&.active': { color: 'orange' } }}>
+            Your Lists
+          </Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 }
 
